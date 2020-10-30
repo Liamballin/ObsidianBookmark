@@ -1,0 +1,31 @@
+<html>
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="index.css">
+
+
+
+    <script>
+         const {ipcRenderer} = require('electron')
+
+         ipcRenderer.on('vault_loc',(event,loc)=>{
+             console.log(loc)
+             if(loc){
+                document.getElementById("pathString").innerText = loc;
+             }
+         })
+    </script>
+
+    <body>
+        <h1 id="title">Obsidian bookmark server</h1>
+
+        <div id="pathCont">
+            <h3 id="pathString">Select vault location..</h3>
+            <input id="selectLocButton"type="button" value="Pick">
+        </div>
+    </body>
+    <script>
+        document.getElementById("selectLocButton").addEventListener('click',(event)=>{
+            ipcRenderer.send("show-file-picker")
+        })
+    </script>
+</html>

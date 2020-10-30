@@ -1,0 +1,40 @@
+:root{
+    --background:#161616;
+    --light:#AF9FF4;
+    --dark:#8571DA;
+}
+body{
+    background-color: var(--background);
+    color: var(--light);
+    font-family: "InterRegular";
+}
+#title{
+    font-family: "InterBold";
+}
+
+#pathCont{
+    background-color: var(--light);
+    color: var(--background);
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    height:40px;
+}
+
+#selectLocButton{
+    right:8px;
+    border: none;
+    position: absolute;
+    height: 40px;
+    width:50px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#selectLocButton:hover{
+    background-color: rgb(228, 221, 255);
+
+}
+
+#pathString{
+    font-size: 13px;
+}
