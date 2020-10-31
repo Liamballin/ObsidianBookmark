@@ -14,6 +14,19 @@
         var turndownService = new TurndownService()
         var selection = turndownService.turndown(sel)
 
+        // var imageReg = ;
+
+        var matches = [...selection.matchAll(/\!\[.*\]\((.*)\)/g)]
+
+        var imageLinks = [];
+
+        for(i = 0; i < matches.length;i++){
+            imageLinks.push(matches[i][1])  //only want the second group
+        }
+        console.log(imageLinks)
+
+
+
         noteFormat = noteFormat.replace('{clip}', selection)
         noteFormat = noteFormat.replace('{date}', date)
         noteFormat = noteFormat.replace('{url}', url)
@@ -24,10 +37,17 @@
 
         let bookmark = {
             text:(noteFormat),
-            name:(dateString()+title)
+            name:(dateString()+title),
+            imageLinks:imageLinks
         }
         console.log(bookmark)
-        fetch('http://localhost:43110/new/'+encodeURIComponent(JSON.stringify(bookmark)))
+        fetch('http://localhost:43110/new',{
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+              },
+            body:(JSON.stringify(bookmark))
+        })
 
 })();
 

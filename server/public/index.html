@@ -29,6 +29,7 @@
             document.getElementById("savePathString").value = settings.save_location
             document.getElementById("portField").value = settings.port;
             document.getElementById("trayBox").checked = settings.close_to_tray;
+            document.getElementById("attatchmentPathString").value = settings.attatchment_location;
         }
 
             function updateMain(){
@@ -67,7 +68,7 @@
         </div>
 
         <div class="flex flex-wrap p-2" >
-            <label class="text-purple-100 font-bold font text-lg px-5 py-1" for="savePathString">Save location</label>
+            <label class="text-purple-100 font-bold font text-lg px-5 py-1" for="savePathString">Save location if different from vault root folder</label>
             <div class=" px-5 py-2 w-full ">
                 <input 
                     class="shadow border rounded w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
@@ -78,6 +79,20 @@
                     select
                 </button>
                 <h3 class="text-purple-100">Leave empty to use root vault folder</h3>
+            </div>
+        </div>
+
+        
+        <div class="flex flex-wrap p-2" >
+            <label class="text-purple-100 font-bold font text-lg px-5 py-1" for="attatchmentPathString">Attatchments folder for image downloads</label>
+            <div class=" px-5 py-2 w-full ">
+                <input 
+                    class="shadow border rounded w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                    id="attatchmentPathString" 
+                    type="text">
+                <button class="bg-blue-500 hover:bg-blue-700 text-purple-100 font-bold p-2 px-4 rounded " type="button" id="selectAttatchmentLocButton">
+                    select
+                </button>
             </div>
         </div>
 
@@ -120,6 +135,12 @@
         document.getElementById("selectSaveLocButton").addEventListener('click',(event)=>{
             ipcRenderer.send("show-file-picker", "save")
         })
+        document.getElementById("selectAttatchmentLocButton").addEventListener('click',(event)=>{
+            ipcRenderer.send("show-file-picker", "attatchment")
+        })
+
+
+        
 
         document.getElementById("trayBox").addEventListener("change",function(){
             console.log(this)
