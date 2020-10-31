@@ -1,5 +1,5 @@
 {
-  "close_to_tray": false,
+  "close_to_tray": true,
   "port": 43110,
-  "vault_location": ""
+  "vault_location": "C:\\Users\\Liam\\Desktop\\obsidianClip\\vault"
 }
