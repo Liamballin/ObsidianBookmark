@@ -51,7 +51,7 @@ app.on('before-quit', function () {
 
 function createWindow(){
 
-    tray = new Tray(path.join(__dirname, 'tray.png'))
+    tray = new Tray(path.join(__dirname, './public/img/tray.png'))
 
     tray.setContextMenu(Menu.buildFromTemplate([
         {
@@ -79,7 +79,7 @@ function createWindow(){
         }
     })
 
-    win.removeMenu()
+    // win.removeMenu()
     // win.webContents.openDevTools()
 
     win.on('minimize',function(event){
@@ -106,7 +106,7 @@ function createWindow(){
         }   
     });
 
-    win.loadFile('index.html')
+    win.loadFile('./public/index.html')
     // win.loadFile("tailwind.html")
 
     win.once('ready-to-show', () => {
@@ -160,16 +160,23 @@ ipcMain.on("start-server",()=>{
 //----------------------------------------- OTHER -----------------
 
 function saveToVault(data, filename){
+    return new Promise((resolve,reject)=>{
+        filename = filename.replace(/[/\\?%*:|"<>]/g, '-'); //regex illegal chars
 
-    filename = filename.replace(/[/\\?%*:|"<>]/g, '-'); //regex illegal chars
-
-    fs.writeFile(settings.vault_location+"/"+(filename)+".md", data, function(err){
-        if(err){
-            console.log(err)
-        }else{
-            console.log("Bookmark saved.")
-        }
+        let saveLocation = settings.save_location || settings.vault_location 
+        saveLocation += "/"+(filename)+".md";
+    
+        fs.writeFile(saveLocation, data, function(err){
+            if(err){
+                reject(err)
+            }else{
+                console.log("Bookmark saved.")
+                console.log(saveLocation)
+                resolve(saveLocation)
+            }
+        })
     })
+
 }
 
 function saveSettings(){

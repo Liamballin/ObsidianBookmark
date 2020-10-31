@@ -14,6 +14,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ."
   },
+  "build": {
+    "extraResources": [
+        {
+            "filter": ["./settings.json"]
+        }
+    ]
+  },
   "author": "Liam Ball",
   "license": "ISC"
 }
