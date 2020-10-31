@@ -6,6 +6,8 @@
 
 The extension copies highlight areas of a web page to markdown, and sends it to a local node server. This then saves it as a markdown file in a folder, like an Obsidian vault, the user has chosen.
 
+Notes use a Zettelkasten identifier prefix, and the title of the webpage.
+
 Until Obsidian supports adding new notes through their custom `Obsidian://` URL protocol, this might be the best way. 
 
 Inspired by jplattel's [Obsidian clipper](https://github.com/jplattel/obsidian-clipper) - a much less janky solution. 
