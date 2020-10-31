@@ -6,26 +6,66 @@
 
     <script>
          const {ipcRenderer} = require('electron')
+         var settings;
 
-         ipcRenderer.on('vault_loc',(event,loc)=>{
-             console.log(loc)
-             if(loc){
-                document.getElementById("pathString").innerText = loc;
-             }
+         ipcRenderer.on("settings",(event, newSettings)=>{
+             settings = newSettings;
+             updateDom();
          })
+
+         function updateDom(){
+            console.log(":)")
+            console.log(settings)
+            document.getElementById("vaultPathString").innerText = settings.vault_location
+            document.getElementById("savePathString").innerText = settings.save_location
+            document.getElementById("portField").value = settings.port;
+            }
+        //  ipcRenderer.on('vault_loc',(event,loc)=>{
+        //      console.log(loc)
+        //      if(loc){
+        //         document.getElementById("pathString").innerText = loc;
+        //      }
+        //  })
     </script>
 
     <body>
         <h1 id="title">Obsidian bookmark server</h1>
 
-        <div id="pathCont">
-            <h3 id="pathString">Select vault location..</h3>
-            <input id="selectLocButton"type="button" value="Pick">
+        <div id="vaultPathCont" class="pathCont">
+            <h3 id="vaultPathString">Select vault location..</h3>
+            <input class="selectLocButton" id="selectVaultLocButton"type="button" value="change">
         </div>
+        <div id="savePathCont"class="pathCont">
+            <h3 id="savePathString">Select save location..</h3>
+            <input class="selectLocButton"id="selectSaveLocButton"type="button" value="change">
+        </div>
+
+        <div class="pathCont">
+            <input type="number" id="portField">
+            <h2>Port number</h2>
+        </div>
+
+        <div class="pathCont">
+            <input type="checkbox">
+            <h2>Close to tray</h2>
+        </div>
+
+        <input id="openButton"type="button"value="open">
     </body>
     <script>
-        document.getElementById("selectLocButton").addEventListener('click',(event)=>{
-            ipcRenderer.send("show-file-picker")
+        document.getElementById("selectVaultLocButton").addEventListener('click',(event)=>{
+            ipcRenderer.send("show-file-picker", "vault")
         })
+        document.getElementById("selectSaveLocButton").addEventListener('click',(event)=>{
+            ipcRenderer.send("show-file-picker", "save")
+        })
+
+        document.getElementById("openButton").addEventListener('click',(event)=>{
+            ipcRenderer.send("openObsidian")
+        })
+
+
+        //once dom is loaded, request settings from main process
+        ipcRenderer.send("get_settings")
     </script>
 </html>

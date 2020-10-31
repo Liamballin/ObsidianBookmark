@@ -12,16 +12,17 @@ body{
     font-family: "InterBold";
 }
 
-#pathCont{
+.pathCont{
     background-color: var(--light);
     color: var(--background);
     display: flex;
     flex-direction: row;
     border-radius: 5px;
-    height:40px;
+    height:60px;
+    margin-top:30px;
 }
 
-#selectLocButton{
+.selectLocButton{
     right:8px;
     border: none;
     position: absolute;

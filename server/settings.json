@@ -1,5 +1,6 @@
 {
-  "close_to_tray": true,
+  "close_to_tray": false,
   "port": 43110,
-  "vault_location": "C:\\Users\\Liam\\Desktop\\obsidianClip\\vault"
+  "vault_location": "C:\\Users\\Liam\\Desktop\\obsidianClip\\vault",
+  "save_location": "C:\\Users\\Liam\\Desktop\\obsidianClip\\vault\\bookmarks\\new web clippings"
 }

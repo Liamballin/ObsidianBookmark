@@ -7,6 +7,7 @@ const {
     Tray 
 } = require('electron')
 
+const open = require("open")
 
 const express = require('express')
 const serve = express()
@@ -115,23 +116,34 @@ function createWindow(){
 }
 
 
-ipcMain.on("show-file-picker",() => {
+ipcMain.on("show-file-picker",(event,type) => {
     dialog.showOpenDialog({properties:['openDirectory']}).then(files => {
         if(!files){
             return;
         };
         var path = files.filePaths[0]
 
-        settings.vault_location = path;
+        if(type == "vault"){
+            settings.vault_location = path;
+        }else if(type == "save"){
+            settings.save_location = path;
+        }
 
-        console.log("Set vault directory to "+path)
+        console.log("Set "+type+" directory to "+path)
 
-        win.webContents.send("vault_loc", path)
+        win.webContents.send("settings", settings)
 
         saveSettings()
     })
 })
+ipcMain.on("openObsidian",()=>{
+    console.log("got openObsidian")
+    openObsidian()
+})
 
+ipcMain.on("get_settings",()=>{
+    win.webContents.send("settings",settings)
+})
 
 //----------------------------------------- OTHER -----------------
 
@@ -158,6 +170,12 @@ function saveSettings(){
 
         console.log("writing to settings");
       });
+}
+
+function openObsidian(){
+    console.log("basename:")
+    console.log(path.basename(settings.vault_location))
+    open("obsidian://vault/"+path.basename(settings.vault_location))
 }
 
 app.on('ready',()=>{
