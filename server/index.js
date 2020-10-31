@@ -9,6 +9,9 @@ const {
 
 const open = require("open")
 
+const bodyParser = require('body-parser');
+
+
 const express = require('express')
 const serve = express()
 const cors = require("cors")
@@ -21,11 +24,13 @@ const port = settings.port || 43110;
 
 //----------------------------------------- EXPRESS -----------------
 serve.use(cors())
+serve.use(bodyParser.json());
 
-serve.get('/new/:bookmark', (req, res) => {
 
-    let bm = JSON.parse(req.params.bookmark)
+serve.post('/new',(req,res)=>{
 
+    let bm = req.body;
+    
     console.log(bm)
 
     saveToVault(bm.text, bm.name)

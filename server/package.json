@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "electron": "^10.1.5",
     "express": "^4.17.1",
@@ -16,9 +17,11 @@
   },
   "build": {
     "extraResources": [
-        {
-            "filter": ["./settings.json"]
-        }
+      {
+        "filter": [
+          "./settings.json"
+        ]
+      }
     ]
   },
   "author": "Liam Ball",
