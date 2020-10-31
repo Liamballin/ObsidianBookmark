@@ -10,3 +10,23 @@ Until Obsidian supports adding new notes through their custom `Obsidian://` URL 
 
 Inspired by jplattel's [Obsidian clipper](https://github.com/jplattel/obsidian-clipper) - a much less janky solution. 
 
+## Usage
+
+With the node server running, clicking the extension icon will save the current page as a markdown bookmark. 
+
+Any selected text or images will be included in the note.
+
+
+## Installation
+
+- Chrome extension:
+
+    Open `chrome://extensions` and select `load unpacked`. Select the extension folder. 
+
+- Node server:
+
+    Running ObsidianBookmark.exe will open the server settings. 
+
+    ![settings](docs/serverSettings.png)
+
+    On starting the server, the app will minimize to the tray and can be accessed from there.

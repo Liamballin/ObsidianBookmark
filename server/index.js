@@ -79,7 +79,7 @@ function createWindow(){
         }
     })
 
-    // win.removeMenu()
+    win.removeMenu()
     // win.webContents.openDevTools()
 
     win.on('minimize',function(event){
