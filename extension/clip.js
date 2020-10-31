@@ -20,7 +20,7 @@
         noteFormat = noteFormat.replace('{title}', title)
         noteFormat = noteFormat.replace('{host}', host)
 
-        // console.log(noteFormat)
+        console.log(noteFormat)
 
         let bookmark = {
             text:(noteFormat),
