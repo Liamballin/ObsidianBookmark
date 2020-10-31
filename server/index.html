@@ -1,11 +1,14 @@
 <html>
     <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="index.css">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
 
 
     <script>
          const {ipcRenderer} = require('electron')
+         Notification.requestPermission()
+
          var settings;
 
          ipcRenderer.on("settings",(event, newSettings)=>{
@@ -13,46 +16,104 @@
              updateDom();
          })
 
+         ipcRenderer.on("status",(event,status)=>{
+             console.log("Got status")
+         })
+
+
+
          function updateDom(){
             console.log(":)")
             console.log(settings)
-            document.getElementById("vaultPathString").innerText = settings.vault_location
-            document.getElementById("savePathString").innerText = settings.save_location
+            document.getElementById("vaultPathString").value = settings.vault_location
+            document.getElementById("savePathString").value = settings.save_location
             document.getElementById("portField").value = settings.port;
+            document.getElementById("trayBox").checked = settings.close_to_tray;
+        }
+
+            function updateMain(){
+                console.log("update main")
+                console.log(settings)
+                ipcRenderer.send("new_settings",settings)
             }
-        //  ipcRenderer.on('vault_loc',(event,loc)=>{
-        //      console.log(loc)
-        //      if(loc){
-        //         document.getElementById("pathString").innerText = loc;
-        //      }
-        //  })
     </script>
+<body class="bg-purple-900"> 
+    <nav class="flex items-center justify-between flex-wrap bg-purple-700 p-5 h-9">
+        <div class="block lg:hidden flex-row">
+                <h2 class="inline-block text-purple-100 font-bold text-2xl">Obsidian bookmark server</h2>
+          </div>
 
-    <body>
-        <h1 id="title">Obsidian bookmark server</h1>
-
-        <div id="vaultPathCont" class="pathCont">
-            <h3 id="vaultPathString">Select vault location..</h3>
-            <input class="selectLocButton" id="selectVaultLocButton"type="button" value="change">
+          <div class="flex flex-col">
+          <button class="bg-blue-500  text-purple-100 font-bold p-2 px-4 rounded " type="button" id="startServer">
+            Start server
+        </button>
+    </div>
+    </nav>
+    
+    <main class="divide-y divide-gray-400">
+        
+        <div class="flex flex-wrap p-2" >
+            <label class="text-purple-100 font-bold font text-lg px-5 py-1" for="vaultPathString">Vault folder</label>
+            <div class=" px-5 py-2 w-full ">
+                <input 
+                    class="shadow border rounded w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                    id="vaultPathString" 
+                    
+                    type="text">
+                <button class="bg-blue-500 hover:bg-blue-700 text-purple-100 font-bold p-2 px-4 rounded " type="button" id="selectVaultLocButton">
+                    select
+                </button>
+            </div>
         </div>
-        <div id="savePathCont"class="pathCont">
-            <h3 id="savePathString">Select save location..</h3>
-            <input class="selectLocButton"id="selectSaveLocButton"type="button" value="change">
+
+        <div class="flex flex-wrap p-2" >
+            <label class="text-purple-100 font-bold font text-lg px-5 py-1" for="savePathString">Save location</label>
+            <div class=" px-5 py-2 w-full ">
+                <input 
+                    class="shadow border rounded w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                    id="savePathString" 
+                     
+                    type="text">
+                <button class="bg-blue-500 hover:bg-blue-700 text-purple-100 font-bold p-2 px-4 rounded " type="button" id="selectSaveLocButton">
+                    select
+                </button>
+                <h3 class="text-purple-100">Leave empty to use root vault folder</h3>
+            </div>
         </div>
 
-        <div class="pathCont">
-            <input type="number" id="portField">
-            <h2>Port number</h2>
+        <div class="flex flex-wrap p-2" >
+            <label class="text-purple-100 font-bold font text-lg px-5 py-1" for="portField">Port number</label>
+            <div class=" px-5 py-2 w-full ">
+                <input 
+                    class="shadow border rounded w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                    id="portField" 
+                    type="number">
+                <button class="bg-blue-500 hover:bg-blue-700 text-purple-100 font-bold p-2 px-4 rounded " type="button">
+                    save
+                </button>
+            </div>
+        </div>
+        
+        <div class="flex flex-wrap p-2" >
+            <div class=" px-5 py-2 w-full ">
+                <label class="inline-flex items-center">
+                    <input id="trayBox" type="checkbox" class="form-checkbox h-8 w-8 rounded">
+                    <span class="ml-4 text-xl text-purple-100">Close to tray</span>
+                  </label>
+            </div>
         </div>
 
-        <div class="pathCont">
-            <input type="checkbox">
-            <h2>Close to tray</h2>
-        </div>
+    </main>
+</body>
 
-        <input id="openButton"type="button"value="open">
-    </body>
     <script>
+
+        document.getElementById("startServer").addEventListener('click',(event)=>{
+            ipcRenderer.send("start-server")
+            let notif = new Notification("Obsidian Bookmark server started on port "+settings.port)
+            // alert("cnt")
+        })
+
         document.getElementById("selectVaultLocButton").addEventListener('click',(event)=>{
             ipcRenderer.send("show-file-picker", "vault")
         })
@@ -60,9 +121,18 @@
             ipcRenderer.send("show-file-picker", "save")
         })
 
-        document.getElementById("openButton").addEventListener('click',(event)=>{
-            ipcRenderer.send("openObsidian")
+        document.getElementById("trayBox").addEventListener("change",function(){
+            console.log(this)
+            settings.close_to_tray = this.checked;
+            updateMain();
         })
+
+        document.getElementById("portField").addEventListener("change",function(){
+            settings.port = this.value;
+            updateMain()
+        })
+
+
 
 
         //once dom is loaded, request settings from main process

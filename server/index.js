@@ -80,7 +80,7 @@ function createWindow(){
     })
 
     // win.removeMenu()
-    win.webContents.openDevTools()
+    // win.webContents.openDevTools()
 
     win.on('minimize',function(event){
         if(settings.close_to_tray){
@@ -107,6 +107,7 @@ function createWindow(){
     });
 
     win.loadFile('index.html')
+    // win.loadFile("tailwind.html")
 
     win.once('ready-to-show', () => {
         win.webContents.send("vault_loc", settings.vault_location)
@@ -145,6 +146,17 @@ ipcMain.on("get_settings",()=>{
     win.webContents.send("settings",settings)
 })
 
+ipcMain.on("new_settings",(event,newSettings)=>{
+    settings = newSettings;
+    saveSettings()
+})
+
+ipcMain.on("start-server",()=>{
+    console.log("Starting server...")
+    startServer()
+    win.hide()
+})
+
 //----------------------------------------- OTHER -----------------
 
 function saveToVault(data, filename){
@@ -178,13 +190,14 @@ function openObsidian(){
     open("obsidian://vault/"+path.basename(settings.vault_location))
 }
 
-app.on('ready',()=>{
-
+function startServer(){
     serve.listen(port, () => {
 
         console.log(`Obsidian bookmark server running on localhost:${port}`)
     })
+}
 
+app.on('ready',()=>{
     createWindow()
 })
 

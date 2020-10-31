@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+        <link href="fonts.css" rel="stylesheet">
+
+    </head>
+    <style>
+        /* @tailwind base;
+
+        @tailwind components;
+
+        @tailwind utilities; */
+
+        body{
+            font-family: "InterRegular";
+        }
+
+    </style>
+    <body class="bg-purple-900"> 
+        <nav class="flex items-center justify-between flex-wrap bg-purple-700 p-5 h-9">
+            <div class="block lg:hidden flex-row">
+                    <h2 class="inline-block text-purple-100 font-bold text-2xl">Obsidian bookmark server</h2>
+              </div>
+        </nav>
+        
+        <main class="divide-y divide-gray-400">
+            
+            <div class="flex flex-wrap p-2" >
+                <label class="text-purple-100 font-bold font text-lg px-5 py-1" for="vaultPathString">Vault folder</label>
+                <div class=" px-5 py-2 w-full ">
+                    <input 
+                        class="shadow border rounded w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                        id="vaultPathString" 
+                        disabled="true" 
+                        type="text">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-purple-100 font-bold p-2 px-4 rounded " type="button">
+                        select
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap p-2" >
+                <label class="text-purple-100 font-bold font text-lg px-5 py-1" for="savePathString">Save location</label>
+                <div class=" px-5 py-2 w-full ">
+                    <input 
+                        class="shadow border rounded w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                        id="savePathString" 
+                        disabled="true" 
+                        type="text">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-purple-100 font-bold p-2 px-4 rounded " type="button">
+                        select
+                    </button>
+                    <h3 class="text-purple-100">Leave empty to use root vault folder</h3>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap p-2" >
+                <label class="text-purple-100 font-bold font text-lg px-5 py-1" for="portField">Port number</label>
+                <div class=" px-5 py-2 w-full ">
+                    <input 
+                        class="shadow border rounded w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                        id="portField" 
+                        type="number">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-purple-100 font-bold p-2 px-4 rounded " type="button">
+                        save
+                    </button>
+                </div>
+            </div>
+            
+            <div class="flex flex-wrap p-2" >
+                <div class=" px-5 py-2 w-full ">
+                    <label class="inline-flex items-center">
+                        <input id="trayBox" type="checkbox" class="form-checkbox h-8 w-8 rounded">
+                        <span class="ml-4 text-xl text-purple-100">Close to tray</span>
+                      </label>
+                </div>
+            </div>
+
+        </main>
+    </body>
+</html>            
+
+
+
+
