@@ -137,6 +137,8 @@ ipcMain.on("show-file-picker",(event,type) => {
             settings.vault_location = path;
         }else if(type == "save"){
             settings.save_location = path;
+        }else if(type == "attatchment"){
+            settings.attatchment_location = path;
         }
 
         console.log("Set "+type+" directory to "+path)
@@ -198,6 +200,8 @@ async function downloadImages(bm){
                     // bm.text = bm.text.replace(bm.imageLinks[i], path.relative(settings.save_location,filePath))
                     bm.text = bm.text.replace(bm.imageLinks[i], path.basename(filePath))
 
+                }).catch(err=>{
+                    console.log("Couldn't download "+path.basename(bm.imageLinks[i]))
                 })
             }
         }
