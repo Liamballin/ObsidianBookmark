@@ -6,14 +6,22 @@
 
 The extension copies highlight areas of a web page to markdown, and sends it to a local node server. This then saves it as a markdown file in a folder, like an Obsidian vault, the user has chosen.
 
-Notes use a Zettelkasten identifier prefix, and the title of the webpage.
 
 Until Obsidian supports adding new notes through their custom `Obsidian://` URL protocol, this might be the best way. 
 
 Inspired by jplattel's [Obsidian clipper](https://github.com/jplattel/obsidian-clipper) - a much less janky solution. 
 
+## Features
+
+- Automatically create a markdown note from a webpage.
+- Notes use a Zettelkasten identifier prefix, and the title of the webpage.
+- Downloads highlighted images to a custom attatchement folder, and updates links in the note.
+
+
 ## Installation:
 ---
+**For Mac or Linux, clone this repo and, in the server folder, run `npm install .` then `electron-packager .`. This will automatically crete a binary for your platform and architechture**
+
 Download both .rar archives from [Releases](https://github.com/Liamballin/ObsidianBookmark/releases/tag/0.0.1) page.
 
 Extract files
