@@ -190,7 +190,7 @@ function saveToVault(data, filename){
 
 }
 
-async function downloadImages(bm){
+async function downloadImages(bm){  //TODO make async
     return new Promise(async (resolve,reject)=>{
         if(settings.download_images){
             for(i = 0; i < bm.imageLinks.length;i++){

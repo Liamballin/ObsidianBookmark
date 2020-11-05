@@ -17,6 +17,11 @@ Inspired by jplattel's [Obsidian clipper](https://github.com/jplattel/obsidian-c
 - Notes use a Zettelkasten identifier prefix, and the title of the webpage.
 - Downloads highlighted images to a custom attatchement folder, and updates links in the note.
 
+## Roadmap
+
+- Allow adding tags in browser to recently saved note
+- Download and link images asynchronously 
+- Intergrate server into Obsidian plugin (?) 
 
 ## Installation:
 ---
