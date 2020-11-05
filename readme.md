@@ -27,7 +27,7 @@ Inspired by jplattel's [Obsidian clipper](https://github.com/jplattel/obsidian-c
 ---
 **For Mac or Linux, clone this repo and, in the server folder, run `npm install .` then `electron-packager .`. This will automatically crete a binary for your platform and architechture**
 
-Download both .rar archives from [Releases](https://github.com/Liamballin/ObsidianBookmark/releases/tag/0.0.1) page.
+Download both .rar archives from [Releases](https://github.com/Liamballin/ObsidianBookmark/releases) page.
 
 Extract files
 #### Chrome extension:
