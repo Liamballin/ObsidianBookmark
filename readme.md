@@ -20,6 +20,7 @@ Inspired by jplattel's [Obsidian clipper](https://github.com/jplattel/obsidian-c
 ## Roadmap
 
 - Allow adding tags in browser to recently saved note
+- Add config page to extension to set port and clip template
 - Download and link images asynchronously 
 - Intergrate server into Obsidian plugin (?) 
 
