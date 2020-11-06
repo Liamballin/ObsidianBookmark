@@ -175,8 +175,9 @@ function saveToVault(data, filename){
         filename = filename.replace(/[/\\?%*:|"<>]/g, '-'); //regex illegal chars
 
         let saveLocation = settings.save_location || settings.vault_location 
-        saveLocation += "/"+(filename)+".md";
-    
+        // saveLocation += "/"+(filename)+".md";
+        saveLocation = path.join(saveLocation, filename+".md");
+
         fs.writeFile(saveLocation, data, function(err){
             if(err){
                 reject(err)
@@ -194,7 +195,7 @@ async function downloadImages(bm){  //TODO make async
     return new Promise(async (resolve,reject)=>{
         if(settings.download_images){
             for(i = 0; i < bm.imageLinks.length;i++){
-                let filePath = settings.attatchment_location+"\\"+path.basename(bm.imageLinks[i])
+                let filePath = path.join(settings.attatchment_location,path.basename(bm.imageLinks[i]));
                 await download(bm.imageLinks[i],filePath ).then(()=>{
                     console.log("Downloaded to "+filePath)
                     // bm.text = bm.text.replace(bm.imageLinks[i], path.relative(settings.save_location,filePath))
@@ -214,9 +215,7 @@ async function downloadImages(bm){  //TODO make async
 
 
 var download = function(uri, filename){
-    
     return new Promise((resolve,reject)=>{
-        // resolve(":)")
         request.head(uri, function(err, res, body){
             console.log('content-type:', res.headers['content-type']);
             console.log('content-length:', res.headers['content-length']);
@@ -224,8 +223,6 @@ var download = function(uri, filename){
             request(uri).pipe(fs.createWriteStream(filename)).on('close', function(){resolve()});
           });
     })
-
-    
   };
   
 

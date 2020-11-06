@@ -3,6 +3,6 @@
   "port": "43110",
   "vault_location": "",
   "save_location": "",
-  "attatchment_location":"",
-  "download_images":true
+  "attatchment_location": "",
+  "download_images": true
 }
