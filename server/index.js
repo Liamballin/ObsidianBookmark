@@ -23,9 +23,8 @@ const open = require("open")
 
 
 
-var settings = require('./settings.json')
-
-const port = settings.port || 43110;
+var settings;
+var port;
 
 //----------------------------------------- EXPRESS -----------------
 serve.use(cors())
@@ -195,7 +194,8 @@ async function downloadImages(bm){  //TODO make async
     return new Promise(async (resolve,reject)=>{
         if(settings.download_images){
             for(i = 0; i < bm.imageLinks.length;i++){
-                let filePath = path.join(settings.attatchment_location,path.basename(bm.imageLinks[i]));
+                let dir = settings.attatchment_location || settings.vault_location;
+                let filePath = path.join(dir,path.basename(bm.imageLinks[i]));
                 await download(bm.imageLinks[i],filePath ).then(()=>{
                     console.log("Downloaded to "+filePath)
                     // bm.text = bm.text.replace(bm.imageLinks[i], path.relative(settings.save_location,filePath))
@@ -225,6 +225,21 @@ var download = function(uri, filename){
     })
   };
   
+function checkCreateSettings(){
+    if(fs.existsSync("./settings.json")){
+        settings = require('./settings.json')
+    }else{
+        settings = {
+            "close_to_tray": true,
+            "port": "43110",
+            "vault_location": "",
+            "save_location": "",
+            "attatchment_location": "",
+            "download_images": true
+          }
+          saveSettings();
+    }
+}
 
 function saveSettings(){
 
@@ -245,13 +260,14 @@ function openObsidian(){
 }
 
 function startServer(){
-    serve.listen(port, () => {
+    serve.listen(settings.port, () => {
 
-        console.log(`Obsidian bookmark server running on localhost:${port}`)
+        console.log(`Obsidian bookmark server running on localhost:${settings.port}`)
     })
 }
 
 app.on('ready',()=>{
+    checkCreateSettings()
     createWindow()
 })
 

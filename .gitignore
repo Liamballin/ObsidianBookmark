@@ -2,3 +2,4 @@
 **/build
 vault/
 secret/
+server/settings.json
