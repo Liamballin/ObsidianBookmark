@@ -1,4 +1,8 @@
 (function() {
+
+
+
+
     var date = new Date().toISOString().slice(0,19)
     var title = document.title
     var url = window.location.href
@@ -23,9 +27,6 @@
         for(i = 0; i < matches.length;i++){
             imageLinks.push(matches[i][1])  //only want the second group
         }
-        console.log(imageLinks)
-
-
 
         noteFormat = noteFormat.replace('{clip}', selection)
         noteFormat = noteFormat.replace('{date}', date)
@@ -33,7 +34,6 @@
         noteFormat = noteFormat.replace('{title}', title)
         noteFormat = noteFormat.replace('{host}', host)
 
-        // console.log(noteFormat)
 
         let bookmark = {
             text:(noteFormat),

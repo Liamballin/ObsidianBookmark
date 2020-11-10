@@ -7,6 +7,11 @@ chrome.browserAction.onClicked.addListener(function (tab) {
     });   
 
 });
+
+chrome.browserAction.setPopup({
+    popup: "dialog.html"
+   });
+
 var ping = setInterval(()=>{
     checkServer();
 },5000)
