@@ -6,6 +6,7 @@
     var defaultNoteFormat =  
     `## [{title}]({url})
     Clipped from {host} on {date}.
+    {tags}
 
 ## {clip}`
     
@@ -13,7 +14,7 @@
         var sel = rangy.getSelection().toHtml();
         var turndownService = new TurndownService()
         var selection = turndownService.turndown(sel)
-
+        var tags = "#webclip"
         // var imageReg = ;
 
         var matches = [...selection.matchAll(/\!\[.*\]\((.*)\)/g)]
@@ -32,6 +33,7 @@
         noteFormat = noteFormat.replace('{url}', url)
         noteFormat = noteFormat.replace('{title}', title)
         noteFormat = noteFormat.replace('{host}', host)
+        noteFormat = noteFormat.replace('{tags}', tags)
 
         // console.log(noteFormat)
 

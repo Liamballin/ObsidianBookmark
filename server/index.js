@@ -38,6 +38,8 @@ serve.post('/new',(req,res)=>{
     downloadImages(bm).then(newNote=>{ //download images and replace links with local filepaths
         saveToVault(newNote.text, newNote.name)
         res.send('...') //todo send useful response
+        win.webContents.send("new", newNote.name)
+
     })
 })
 

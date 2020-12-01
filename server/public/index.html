@@ -20,6 +20,13 @@
              console.log("Got status")
          })
 
+         ipcRenderer.on("new", (event, info)=>{
+             console.log("got new")
+             console.log(info)
+             let notif = new Notification("Note Saved.\n"+info)
+
+         })
+
 
 
          function updateDom(){
